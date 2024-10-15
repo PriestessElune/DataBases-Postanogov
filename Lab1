@@ -1,0 +1,41 @@
+CREATE TABLE Authors (
+    author_id INT PRIMARY KEY,
+    fname VARCHAR(100) NOT NULL,
+    birth_year INT
+);
+
+CREATE TABLE Books (
+    book_id INT PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    author_id INT,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
+);
+
+CREATE TABLE Reviews (
+    review_id INT PRIMARY KEY,
+    book_id INT,
+    review_text TEXT,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+INSERT INTO Authors (author_id, fname, birth_year) VALUES
+(1, 'Лев Толстой', 1828),
+(2, 'Фёдор Достоевский', 1821),
+(3, 'Антон Чехов', 1860);
+
+
+INSERT INTO Books (book_id, title, author_id) VALUES
+(1, 'Война и мир', 1),
+(2, 'Анна Каренина', 1),
+(3, 'Преступление и наказание', 2),
+(4, 'Идиот', 2),
+(5, 'Три сестры', 3);
+
+
+INSERT INTO Reviews (review_id, book_id, review_text, rating) VALUES
+(1, 1, 'Удивительное произведение о человеческой природе.', 5),
+(2, 1, 'Сложно, но интересно.', 4),
+(3, 3, 'Глубокая философия.', 5),
+(4, 4, 'Неожиданные повороты сюжета.', 4),
+(5, 5, 'Тонкое понимание человеческих эмоций.', 5);
